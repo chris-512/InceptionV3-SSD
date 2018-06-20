@@ -62,7 +62,8 @@ class Evaluator:
             with tf.device('/device:CPU:0'):
                 self._setup_evaluation()
         else:
-            self._setup_evaluation()
+            with tf.device('/device:CPU:0'):
+                self._setup_evaluation()
 
     def eval_all_checkpoints(self, min_step, step):
         selected_checkpoints = self._get_all_checkpoints(min_step, step)
@@ -97,7 +98,6 @@ class Evaluator:
             self.g_post.get_mAP_tf_accumulative(predictions, localisations, glabels, gbboxes, gdifficults)
         variables_to_restore = slim.get_variables_to_restore()
         num_batches = math.ceil(self.g_prepare.dataset.num_samples / float(self.g_prepare.batch_size))
-
         config = tf.ConfigProto(log_device_placement=False, gpu_options=gpu_options)
 
         if not self.loop:
@@ -112,11 +112,11 @@ class Evaluator:
             slim.evaluation.evaluate_once(master='',
                                           checkpoint_path=checkpoint_file,
                                           logdir=self.eval_dir,
-                                          num_evals=1, # num_batches
+                                          num_evals=num_batches,
                                           eval_op=flatten(list(names_to_updates.values())),
                                           session_config=config,
                                           variables_to_restore=variables_to_restore)
-            # log time spent
+	        # log time spent
             end = time.time()
             elapsed = end - start
             print('Time spent : %.3f seconds' % elapsed)

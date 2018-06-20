@@ -47,7 +47,9 @@ class SSDModel:
         self.np_anchors_minmax = None
 
     def get_model(self, inputs):
-        net, end_points = self._feature_extractor(inputs)
+        with slim.arg_scope([slim.batch_norm, slim.dropout],
+                            is_training=self.is_training):
+            net, end_points = self._feature_extractor(inputs)
         keep_prob = 0.8
         with slim.arg_scope([slim.conv2d], activation_fn=None):
             with slim.arg_scope([slim.batch_norm], activation_fn=tf.nn.relu,

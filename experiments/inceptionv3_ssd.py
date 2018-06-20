@@ -6,7 +6,7 @@ train1_1 = TrainerParams(
     feature_extractor='inception_v3',
     model_name='ssd512',
     fine_tune_fe=False,
-    train_dir='./experiments/inception_v3/logs',
+    train_dir='./experiments/inception_v3/logs/inception_freezed_4_layers',
     checkpoint_path='./checkpoints/inception_v3/inception_v3.ckpt',
     ignore_missing_vars=False,
     learning_rate=0.1,
@@ -19,8 +19,8 @@ train1_1 = TrainerParams(
     weight_decay=0.0005,
     batch_size=16,
     log_every_n_steps=30,
-    save_interval_secs=60,
-    save_summaries_secs=60,
+    save_interval_secs=1800,
+    save_summaries_secs=120,
     labels_offset=0,
     matched_thresholds=0.5
     )
@@ -91,7 +91,28 @@ train1_4 = TrainerParams(
     labels_offset=0,
     matched_thresholds=0.5
     )
-
+train1_4 = TrainerParams(
+    feature_extractor='inception_v3',
+    model_name='ssd512',
+    fine_tune_fe=True,
+    train_dir='./experiments/inception_v3/logs/finetune_14008',
+    checkpoint_path='./experiments/inception_v3/logs/finetune_14008',
+    ignore_missing_vars=False,
+    learning_rate=0.001,
+    learning_rate_decay_type='fixed',
+    learning_rate_decay_factor=1,
+    num_epochs_per_decay=1,
+    end_learning_rate=0.001,
+    max_number_of_steps=200000,
+    optimizer='adam',
+    weight_decay=0.0005,
+    batch_size=32,
+    log_every_n_steps=30,
+    save_interval_secs=60*10,
+    save_summaries_secs=60,
+    labels_offset=0,
+    matched_thresholds=0.5
+    )
 
 
 # Parameters for evaluating model
@@ -106,8 +127,8 @@ eval_train = EvaluatorParams(
 )
 
 eval_test = EvaluatorParams(
-    checkpoint_path='./experiments/inception_v3/logs/finetune_14008',
-    eval_dir='./experiments/inception_v3/eval_test',
+    checkpoint_path='./experiments/inception_v3/logs/inception_freezed_4_layers',
+    eval_dir='./experiments/inception_v3/eval_test_freezed_4_layers',
     use_finetune=False,
     is_training=False,
     eval_train_dataset=False,

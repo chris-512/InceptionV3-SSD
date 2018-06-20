@@ -216,8 +216,8 @@ class Trainer:
             scopes = [scope.strip() for scope in self.trainable_scopes.split(',')]
 		
         # added trainable scopes
-        #additional_scopes = ['Conv2d_3b_1x1', 'Conv2d_4a_3x3', 'MaxPool_5a_3x3', 'Mixed_5b', 'Mixed_5c', 'Mixed_5d', 'Mixed_6a', 'Mixed_6b', 'Mixed_6c', 'Mixed_6d']
-        additional_scopes = ['Mixed_5b', 'Mixed_5c', 'Mixed_5d', 'Mixed_6a', 'Mixed_6b', 'Mixed_6c', 'Mixed_6d']
+        additional_scopes = ['Conv2d_3b_1x1', 'Conv2d_4a_3x3', 'MaxPool_5a_3x3', 'Mixed_5b', 'Mixed_5c', 'Mixed_5d', 'Mixed_6a', 'Mixed_6b', 'Mixed_6c', 'Mixed_6d']
+        #additional_scopes = ['Mixed_5b', 'Mixed_5c', 'Mixed_5d', 'Mixed_6a', 'Mixed_6b', 'Mixed_6c', 'Mixed_6d']
         additional_scopes = ['InceptionV3/' + scope for scope in additional_scopes]
         scopes.extend(additional_scopes)
 

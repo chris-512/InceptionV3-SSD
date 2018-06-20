@@ -6,7 +6,7 @@ from trainer.postprocessingdata import PostProcessingData
 from experiments import inceptionv3_ssd
 
 if __name__ == '__main__':
-    params = inceptionv3_ssd.train1_4
+    params = inceptionv3_ssd.train1_1
 
     feature_extractor = params.feature_extractor
     model_name = params.model_name
